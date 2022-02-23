@@ -5,7 +5,8 @@ import Comic from './components/Comic';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Comic />
+       <Comic />
   </React.StrictMode>,
+
   document.getElementById('root')
 );
