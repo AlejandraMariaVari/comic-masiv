@@ -1,3 +1,6 @@
+import { ERROR_SERVICE, SUCCESS_SERVICE } from '../../utils/constants';
+import { notifyError, notifySuccess } from '../../utils/notify';
+
 import {
     COMIC_HAS_ERRORED,
     COMIC_IS_LOADING,
@@ -23,16 +26,18 @@ export const comicFetchSuccess = (data) => ({
 
 export const fetchComicData = (urlApi) => (dispatch) => {
     dispatch(comicIsLoading(true));
-
     fetch(urlApi)
-        // .then(response => {
-        //     if (!response.ok) throw Error(response.statusText);
-        //     return response;
-        // })
+        .then(response => {
+            if (!response.ok) throw Error(response.statusText);
+            return response;
+        })
         .then((response) => response.json())
         .then((data) => {
-            console.log("data", data);
+            notifySuccess(SUCCESS_SERVICE)
             dispatch(comicFetchSuccess(data));
         })
-        .catch(() => dispatch(comicHasErrored(true)));
+        .catch((error) => {
+            notifyError(ERROR_SERVICE)
+            dispatch(comicHasErrored(true))
+        });
 };
