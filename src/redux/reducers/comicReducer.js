@@ -2,14 +2,12 @@ import { COMIC_FETCH_SUCCESS, COMIC_HAS_ERRORED, COMIC_IS_LOADING } from "../act
 
 const initialState = {
     hasErrored: false,
-    isLoading: false,
     loaded: false,
     comics: []
 }
 
 
 const comicReducer = (state = initialState, action) => {
-
     switch (action.type) {
         case COMIC_HAS_ERRORED:
             return {
@@ -21,7 +19,6 @@ const comicReducer = (state = initialState, action) => {
         case COMIC_IS_LOADING:
             return {
                 ...state,
-                isLoading: action.isLoading,
                 loaded: false,
             }
 
@@ -30,7 +27,6 @@ const comicReducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                isLoading: false,
                 loaded: true,
                 data
             }

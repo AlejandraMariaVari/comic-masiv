@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Comic.scss";
 
-// Libraries
-import { toast } from 'react-toastify';
+
 
 // Redux
 import { fetchComicData } from "../../redux/actions/comicAction";
@@ -10,6 +9,7 @@ import { fetchComicData } from "../../redux/actions/comicAction";
 // component
 import RatingStars from "../RatingStars";
 import { useDispatch, useSelector } from "react-redux";
+import Loading from "../../utils/loading";
 
 export default function Comic() {
 
@@ -32,10 +32,13 @@ export default function Comic() {
     setRating(starId);
   };
 
-  useEffect(() => {
+  const nextComic = () => {
     const idImage = parseInt(Math.random() * 2586);
-    console.log(idImage);
     dispatch(fetchComicData(`https://xkcd.com/${idImage}/info.0.json`));
+  };
+
+  useEffect(() => {
+    nextComic();
   }, []);
 
   return loaded ? (
@@ -60,8 +63,11 @@ export default function Comic() {
           );
         })}
       </div>
+      <button className="comic-container__next" onClick={nextComic}>Siguiente</button>
     </section>
   ) : (
-    <h1> Estoy cargando</h1>
+    <section className="comic-center"> 
+        <Loading type='spin' color='#ffffff' />
+    </section>
   );
 }
