@@ -26,6 +26,7 @@ export const comicFetchSuccess = (data) => ({
 
 export const fetchComicData = (urlApi) => (dispatch) => {
     dispatch(comicIsLoading(true));
+
     fetch(urlApi)
         .then(response => {
             if (!response.ok) throw Error(response.statusText);
@@ -37,6 +38,7 @@ export const fetchComicData = (urlApi) => (dispatch) => {
             dispatch(comicFetchSuccess(data));
         })
         .catch((error) => {
+            console.error("error", error);
             notifyError(ERROR_SERVICE)
             dispatch(comicHasErrored(true))
         });
