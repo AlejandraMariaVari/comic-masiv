@@ -35,6 +35,9 @@ export default function Comic() {
   const nextComic = () => {
     const idImage = parseInt(Math.random() * 2586);
     dispatch(fetchComicData(`https://xkcd.com/${idImage}/info.0.json`));
+
+    setRating(0);
+
   };
 
   useEffect(() => {
@@ -47,6 +50,11 @@ export default function Comic() {
       <div>
         <img className="comic-container__image" src={comicData.img} alt={comicData.alt} />
       </div>
+
+      {(rating == 0) ? 
+         <div className="comic-container__textRating">Califícame</div> :
+         <div className="comic-container__textRating">Calificación obtenida: {rating} Estrellas </div>
+      }
 
       <div className="container-stars">
         {idStarsArray.map((starId) => {
